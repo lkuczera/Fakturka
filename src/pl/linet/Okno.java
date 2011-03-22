@@ -40,7 +40,7 @@ public class Okno extends JFrame implements Serializable {
 	k_nip = new JLabel("Nip",JLabel.LEFT),
 	k_kod = new JLabel("Kod",JLabel.LEFT),
 	k_miejsc = new JLabel("Miasto",JLabel.LEFT),
-	pr_nazwa = new JLabel("Nazwa towaru/us�ugi",JLabel.LEFT),
+	pr_nazwa = new JLabel("Nazwa towaru/usługi",JLabel.LEFT),
 	pkwiu = new JLabel("PKWiU",JLabel.LEFT),
 	ilosc = new JLabel("Ilość",JLabel.LEFT),
 	vat = new JLabel("vat",JLabel.LEFT),
