@@ -66,10 +66,13 @@ public class Akcje {
 							Okno.txt_slownie.getText()
 					);
 					try {
-						Runtime.getRuntime().exec("explorer faktura.pdf");
+						if(System.getProperty("os.name").equals("Mac OS X")) {
+							Runtime.getRuntime().exec("open faktura.pdf");
+						} else {
+							Runtime.getRuntime().exec("explorer faktura.pdf");
+						}
 					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage());
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Pdf wygenerowano w katalogu aplikacji");
 					}
 			}
 			catch (NumberFormatException nfE) {
