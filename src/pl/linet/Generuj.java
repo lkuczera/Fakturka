@@ -102,7 +102,7 @@ public class Generuj {
 				vera = BaseFont.createFont("C:\\Windows\\Fonts\\Arial.ttf",
 						BaseFont.CP1250, BaseFont.EMBEDDED);
 			else if (System.getProperty("os.name").equals("Mac OS X")) {
-				vera = BaseFont.createFont("/Library/Fonts/Georgia.ttf",
+				vera = BaseFont.createFont("/Library/Fonts/Arial.ttf",
 						BaseFont.CP1250, BaseFont.EMBEDDED);
 			} else {
 				vera = BaseFont.createFont(
@@ -117,7 +117,7 @@ public class Generuj {
 			table1.setSpacingBefore(5f);
 			table1.setSpacingAfter(15f);
 
-			table1.addCell(new Paragraph("Faktura VAT           ORGINAŁ/KOPIA",
+			table1.addCell(new Paragraph("Faktura VAT           ORYGINAŁ/KOPIA",
 					font));
 			table1.addCell(new Phrase("z dnia: " + data));
 			table1.addCell(new Phrase("nr.  " + numer_f));
