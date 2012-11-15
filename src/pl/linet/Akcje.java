@@ -58,7 +58,7 @@ public class Akcje {
 				Generuj pdf = new Generuj();
 				try {
 					pdf.generatePdf(Okno.txt_k_nazwa.getText(),Okno.txt_k_adres.getText(),Okno.txt_nip.getText(),Okno.txt_k_kod.getText(),Okno.txt_k_miejsc.getText(),
-							Okno.txt_pr_nazwa.getText(),Okno.txt_pkwiu.getText(),Okno.txt_ilosc.getText(),
+							Okno.txt_pr_nazwa.getText(),Okno.txt_j_m.getText(),Okno.txt_cena_jedn.getText(),Okno.txt_ilosc.getText(),
 							Float.valueOf(Okno.txt_netto.getText()).floatValue(),
 							Integer.parseInt(Okno.txt_vat.getText()),
 							Okno.txt_sp_platnosci.getText(),Okno.txt_termin_platnosci.getText(),

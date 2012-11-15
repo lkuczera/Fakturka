@@ -19,7 +19,7 @@ public class Okno extends JFrame implements Serializable {
 	WINDOW_LOCATION_Y = 50,
 	WINDOW_WIDTH = 550,
 	WINDOW_HEIGHT = 500,
-	WINDOW_GRID_ROWS = 18,
+	WINDOW_GRID_ROWS = 19,
 	WINDOW_GRID_COLS = 2;
 	
 	/* elementy okna */
@@ -41,7 +41,8 @@ public class Okno extends JFrame implements Serializable {
 	k_kod = new JLabel("Kod",JLabel.LEFT),
 	k_miejsc = new JLabel("Miasto",JLabel.LEFT),
 	pr_nazwa = new JLabel("Nazwa towaru/usługi",JLabel.LEFT),
-	pkwiu = new JLabel("PKWiU",JLabel.LEFT),
+	j_m = new JLabel("Jednoska miary", JLabel.LEFT),
+	cena_jedn = new JLabel("Cena jednostkowa",JLabel.LEFT),
 	ilosc = new JLabel("Ilość",JLabel.LEFT),
 	vat = new JLabel("vat",JLabel.LEFT),
 	sp_platnosci = new JLabel("Sposób zapłaty",JLabel.LEFT),
@@ -52,7 +53,7 @@ public class Okno extends JFrame implements Serializable {
 	
 //	kontenerek do etykiet
 	private static final JLabel[] label_array = { 
-	nr_f,data_wystawienia,k_nazwa,k_adres,k_kod,k_miejsc,k_nip,pr_nazwa,pkwiu,
+	nr_f,data_wystawienia,k_nazwa,k_adres,k_kod,k_miejsc,k_nip,pr_nazwa,cena_jedn, j_m,
 	ilosc,lnetto ,vat,sp_platnosci,termin_platnosci,slownie};
 //	pola tekstowe
 	public static final JTextField 
@@ -63,8 +64,9 @@ public class Okno extends JFrame implements Serializable {
 	txt_nip = new JTextField(""),
 	txt_k_kod = new JTextField(""),
 	txt_k_miejsc = new JTextField(""),
-	txt_pr_nazwa = new JTextField(""),	
-	txt_pkwiu = new JTextField(""),	
+	txt_pr_nazwa = new JTextField(""),
+	txt_j_m = new JTextField(""),
+	txt_cena_jedn = new JTextField(""),	
 	txt_ilosc = new JTextField(""),	
 	txt_vat = new JTextField(""),	
 	txt_sp_platnosci = new JTextField(""),
@@ -72,10 +74,13 @@ public class Okno extends JFrame implements Serializable {
 	txt_data_wystawienia = new JTextField(""),
 	txt_nr_f = new JTextField(""),
 	txt_slownie = new JTextField("");
+	
+	
+	
 
 //	kontenerek do jtextfield
 	public static JTextField[] jtxt_array = { 
-			txt_nr_f,txt_data_wystawienia,txt_k_nazwa,txt_k_adres,txt_k_kod,txt_k_miejsc,txt_nip,txt_pr_nazwa,txt_pkwiu,
+			txt_nr_f,txt_data_wystawienia,txt_k_nazwa,txt_k_adres,txt_k_kod,txt_k_miejsc,txt_nip,txt_pr_nazwa,txt_cena_jedn,txt_j_m,
 			txt_ilosc,txt_netto ,txt_vat,txt_sp_platnosci,txt_termin_platnosci,
 			txt_slownie};
 //	wyswietla liste z pojedynczym wyborem
@@ -85,24 +90,23 @@ public class Okno extends JFrame implements Serializable {
 	static HashMap contener_nabywcow = new HashMap();
 	
 /**
- * tworzy g��wne okno aplikacji
+ * tworzy główne okno aplikacji
  *	@param String s - tytul okna
  *
  */
 	public Okno(String s) {
 		this.setTitle(s);
-//		dodaje akcje do przycisk�w
+//		dodaje akcje do przycisków
 		Akcje akcje = new Akcje();
 		}
 	public static void main(String[] args) {
-		/* ustawia wygl�d (musi by� przed stworzeniem JFrame */
+		/* ustawia wygląd (musi być przed stworzeniem JFrame */
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		Okno ramka = new Okno("Program Fakturka made by Lukasz Kuczera");
-		/* zamykanie programu po zamkni�ciu okna */
+		Okno ramka = new Okno("Program Fakturka made by Łukasz Kuczera");
+		/* zamykanie programu po zamknięciu okna */
 		ramka.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		/* dodawanie przycisk�w do ramki */
+		/* dodawanie przycisków do ramki */
 		Container cp = ramka.getContentPane();
-		
 //		przyciski i opisy z kontenerków
 		
 		for(int i=0;i < label_array.length; i++) {

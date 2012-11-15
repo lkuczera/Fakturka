@@ -77,7 +77,7 @@ public class Generuj {
 	 */
 
 	public void generatePdf(String k_nazwa, String k_adres, String k_nip,
-			String k_kod, String k_miesc, String usluga, String pkwiu,
+			String k_kod, String k_miesc, String usluga, String j_m, String cena_jedn,
 			String ilosc, float netto, int vat, String platnosc, String termin,
 			String numer_f, String data, String slownie) {
 
@@ -173,7 +173,7 @@ public class Generuj {
 
 			// dane tabeli produktu
 			pr_table.addCell(new Phrase("Nazwa Towaru/Usługi", font));
-			pr_table.addCell(new Phrase("PKWiU", font));
+			pr_table.addCell(new Phrase("Cena jedn.", font));
 			pr_table.addCell(new Phrase("j.m", font));
 			pr_table.addCell(new Phrase("Ilość", font));
 			pr_table.addCell(new Phrase("Wartość netto", font));
@@ -182,8 +182,8 @@ public class Generuj {
 			pr_table.addCell(new Phrase("Wartość Brutto", font));
 
 			pr_table.addCell(new Phrase(usluga, font));
-			pr_table.addCell(pkwiu);
-			pr_table.addCell("");
+			pr_table.addCell(cena_jedn);
+			pr_table.addCell(j_m);
 			pr_table.addCell(ilosc);
 			pr_table.addCell(Float.toString(netto));
 			pr_table.addCell(Float.toString(Przelicz.podatek(netto, vat)));
