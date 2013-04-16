@@ -77,9 +77,10 @@ public class Generuj {
 	 */
 
 	public void generatePdf(String k_nazwa, String k_adres, String k_nip,
-			String k_kod, String k_miesc, String usluga, String j_m, String cena_jedn,
-			String ilosc, float netto, int vat, String platnosc, String termin,
-			String numer_f, String data, String slownie) {
+			String k_kod, String k_miesc, String usluga, String j_m,
+			String cena_jedn, String ilosc, float netto, int vat,
+			String platnosc, String termin, String numer_f, String data,
+			String slownie) {
 
 		// przeliczenia podatku
 		float brutto = Przelicz.brutto(netto, vat);
@@ -102,8 +103,14 @@ public class Generuj {
 				vera = BaseFont.createFont("C:\\Windows\\Fonts\\Arial.ttf",
 						BaseFont.CP1250, BaseFont.EMBEDDED);
 			else if (System.getProperty("os.name").equals("Mac OS X")) {
-				vera = BaseFont.createFont("/Library/Fonts/Arial.ttf",
+				try {
+				vera = BaseFont.createFont("/Library/Fonts/Microsoft/Arial.ttf",
 						BaseFont.CP1250, BaseFont.EMBEDDED);
+				} catch(Exception e) {
+					System.out.println("Can't find font in: /Library/Fonts/Microsoft/Arial.ttf, looking in //Library/Fonts/Arial.ttf");
+					vera = BaseFont.createFont("/Library/Fonts/Microsoft/Arial.ttf",
+							BaseFont.CP1250, BaseFont.EMBEDDED);
+				}
 			} else {
 				vera = BaseFont.createFont(
 						"/usr/share/fonts/corefonts/arial.ttf",
@@ -117,8 +124,8 @@ public class Generuj {
 			table1.setSpacingBefore(5f);
 			table1.setSpacingAfter(15f);
 
-			table1.addCell(new Paragraph("Faktura VAT           ORYGINAŁ/KOPIA",
-					font));
+			table1.addCell(new Paragraph(
+					"Faktura VAT           ORYGINAŁ/KOPIA", font));
 			table1.addCell(new Phrase("z dnia: " + data));
 			table1.addCell(new Phrase("nr.  " + numer_f));
 			table1.addCell(new Phrase("Miejscowość: " + miejsc, font));
@@ -187,7 +194,12 @@ public class Generuj {
 			pr_table.addCell(ilosc);
 			pr_table.addCell(Float.toString(netto));
 			pr_table.addCell(Float.toString(Przelicz.podatek(netto, vat)));
-			pr_table.addCell(Integer.toString(vat));
+			String vatStr = "";
+			if (vat != -1)
+				vatStr = Integer.toString(vat);
+			else
+				vatStr = "np.";
+			pr_table.addCell(vatStr);
 			pr_table.addCell(Float.toString(brutto));
 
 			document.add(pr_table);
@@ -231,47 +243,58 @@ public class Generuj {
 				pd_table.addCell(Float.toString(podatek));
 				pd_table.addCell(Float.toString(brutto));
 
-				pd_table.addCell("7%");
+				pd_table.addCell("8%");
 				pd_table.addCell("");
 				pd_table.addCell("");
 				pd_table.addCell("");
-			} else if (vat == 7) {
+			} else if (vat == -1) {
+				pd_table.addCell("23%");
+				pd_table.addCell("np.");
+				pd_table.addCell("np.");
+				pd_table.addCell("np.");
+
+				pd_table.addCell("8%");
+				pd_table.addCell("np.");
+				pd_table.addCell("np.");
+				pd_table.addCell("np.");
+				
+			} else if (vat == 8) {
 				pd_table.addCell("23%");
 				pd_table.addCell("");
 				pd_table.addCell("");
 				pd_table.addCell("");
 
-				pd_table.addCell("7%");
+				pd_table.addCell("8%");
 				pd_table.addCell(Float.toString(netto));
 				pd_table.addCell(Float.toString(podatek));
 				pd_table.addCell(Float.toString(brutto));
 
 			} else {
 				pd_table.addCell("23%");
-				pd_table.addCell("vat musi byc 23 lub 7");
-				pd_table.addCell("vat musi byc 23 lub 7");
-				pd_table.addCell("musi byc 23 lub 7");
+				pd_table.addCell("vat musi byc 23 lub 8");
+				pd_table.addCell("vat musi byc 23 lub 8");
+				pd_table.addCell("musi byc 23 lub 8");
 
-				pd_table.addCell("7%");
-				pd_table.addCell("vat musi byc 23 lub 7");
-				pd_table.addCell("vat musi byc 23 lub 7");
-				pd_table.addCell("vat musi byc 23 lub 7");
-				pd_table.addCell("vat musi byc 23 lub 7");
+				pd_table.addCell("8%");
+				pd_table.addCell("vat musi byc 23 lub 8");
+				pd_table.addCell("vat musi byc 23 lub 8");
+				pd_table.addCell("vat musi byc 23 lub 8");
+				pd_table.addCell("vat musi byc 23 lub 8");
 
 			}
-			// pd_table.addCell("3%");
-			// pd_table.addCell("tutaj suma bez 3%");
-			// pd_table.addCell("tutaj suma vat 3%");
-			// pd_table.addCell("tutaj suma brutto 3%");
-			//		
-			// pd_table.addCell("0%");
-			// pd_table.addCell("tutaj suma bez 0%");
-			// pd_table.addCell("tutaj suma vat 0%");
-			// pd_table.addCell("tutaj suma brutto 0%");
-			//		
+			
 			kt_table.addCell(pd_table);
 
 			document.add(kt_table);
+			// dodatkowa notatka w przypadku sprzedaży pozawspólnotowej
+			if(vat == -1) {
+				Paragraph p1 = new Paragraph("Podatek VAT rozlicza nabywca. Podstawa prawna: art. 28b Ustawy o podatku od towarów i usług z dnia 11.03.2004.", font);
+				p1.setSpacingBefore(10);
+				p1.setSpacingAfter(10);
+				document.add(p1);
+				Paragraph p2 = new Paragraph("Odwrotne Obciążenie", font);
+				document.add(p2);
+			}
 			// koniec tabelka kontener
 
 		} catch (DocumentException docex) {
@@ -291,18 +314,27 @@ public class Generuj {
 
 class Przelicz {
 	protected static float brutto(float netto, int vat) {
+		// obsługuje przypadek zwolnienia (np. - nie podlega)
+		if (vat == -1)
+			return netto;
 		float brutto = netto + podatek(netto, vat);
 		brutto = (float) Math.round(brutto * 100) / 100;
 		return brutto;
 	}
 
 	protected static float netto(float brutto, int vat) {
+		// obsługuje przypadek zwolnienia (np. - nie podlega)
+		if (vat == -1)
+			return brutto;
 		float netto = brutto - podatek(brutto, vat);
 		netto = (float) Math.round(netto * 100) / 100;
 		return netto;
 	}
 
 	protected static float podatek(float netto, int vat) {
+		// obsługuje przypadek zwolnienia (np. - nie podlega)
+		if (vat == -1)
+			return 0;
 		// zamienia vat na procent
 		float v = vat;
 		v = v / 100;
