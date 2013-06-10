@@ -249,14 +249,14 @@ public class Generuj {
 				pd_table.addCell("");
 			} else if (vat == -1) {
 				pd_table.addCell("23%");
-				pd_table.addCell("np.");
-				pd_table.addCell("np.");
-				pd_table.addCell("np.");
+				pd_table.addCell("0");
+				pd_table.addCell("0");
+				pd_table.addCell("0");
 
 				pd_table.addCell("8%");
-				pd_table.addCell("np.");
-				pd_table.addCell("np.");
-				pd_table.addCell("np.");
+				pd_table.addCell("0");
+				pd_table.addCell("0");
+				pd_table.addCell("0");
 				
 			} else if (vat == 8) {
 				pd_table.addCell("23%");
