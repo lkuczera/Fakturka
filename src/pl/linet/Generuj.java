@@ -104,11 +104,14 @@ public class Generuj {
 						BaseFont.CP1250, BaseFont.EMBEDDED);
 			else if (System.getProperty("os.name").equals("Mac OS X")) {
 				try {
-				vera = BaseFont.createFont("/Library/Fonts/Microsoft/Arial.ttf",
-						BaseFont.CP1250, BaseFont.EMBEDDED);
-				} catch(Exception e) {
-					System.out.println("Can't find font in: /Library/Fonts/Microsoft/Arial.ttf, looking in //Library/Fonts/Arial.ttf");
-					vera = BaseFont.createFont("/Library/Fonts/Microsoft/Arial.ttf",
+					vera = BaseFont.createFont(
+							"/Library/Fonts/Microsoft/Arial.ttf",
+							BaseFont.CP1250, BaseFont.EMBEDDED);
+				} catch (Exception e) {
+					System.out
+							.println("Can't find font in: /Library/Fonts/Microsoft/Arial.ttf, looking in //Library/Fonts/Arial.ttf");
+					vera = BaseFont.createFont(
+							"/Library/Fonts/Microsoft/Arial.ttf",
 							BaseFont.CP1250, BaseFont.EMBEDDED);
 				}
 			} else {
@@ -193,7 +196,12 @@ public class Generuj {
 			pr_table.addCell(j_m);
 			pr_table.addCell(ilosc);
 			pr_table.addCell(Float.toString(netto));
-			pr_table.addCell(Float.toString(Przelicz.podatek(netto, vat)));
+			String podatekStr = "";
+			if (vat != -1)
+				podatekStr = Float.toString(Przelicz.podatek(netto, vat));
+			else
+				podatekStr = "np.";
+			pr_table.addCell(podatekStr);
 			String vatStr = "";
 			if (vat != -1)
 				vatStr = Integer.toString(vat);
@@ -282,13 +290,15 @@ public class Generuj {
 				pd_table.addCell("vat musi byc 23 lub 8");
 
 			}
-			
+
 			kt_table.addCell(pd_table);
 
 			document.add(kt_table);
 			// dodatkowa notatka w przypadku sprzedaży pozawspólnotowej
-			if(vat == -1) {
-				Paragraph p1 = new Paragraph("Podatek VAT rozlicza nabywca. Podstawa prawna: art. 28b Ustawy o podatku od towarów i usług z dnia 11.03.2004.", font);
+			if (vat == -1) {
+				Paragraph p1 = new Paragraph(
+						"Podatek VAT rozlicza nabywca. Podstawa prawna: art. 28b Ustawy o podatku od towarów i usług z dnia 11.03.2004.",
+						font);
 				p1.setSpacingBefore(10);
 				p1.setSpacingAfter(10);
 				document.add(p1);
